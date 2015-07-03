@@ -1,6 +1,6 @@
 class PhotoProduct < Product
-  validate_presence_of :price, :merchant_id, :image_id, :location_id, :physical_product, :datetime_taken
-  validates_datetime :datetime_taken
+  validates_presence_of :price, :merchant_id, :image_id, :location_id, :physical_product, :datetime_taken
+  #validates_date_time :datetime_taken
   
   belongs_to :location
   has_one :image

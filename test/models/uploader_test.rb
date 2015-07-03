@@ -11,13 +11,13 @@ class UploaderTest < ActiveSupport::TestCase
 
   def test_returns_new_image_instance_from_image_file_type
     i = @uploader.load(@valid_image)
-    assert_equal(i.class.name == "image")
+    assert_equal i.class.name, "image"
 
   end
 
   def test_returns_nil_from_invalid_file_type
     i = @uploader.load(@invalid_file)
-    assert_equal(i, nil)
+    assert_equal i, nil
   end
   
   def test_unpacks_zip_file

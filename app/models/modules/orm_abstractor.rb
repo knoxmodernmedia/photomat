@@ -1,4 +1,4 @@
-module OrmAbstractor do
+module OrmAbstractor 
 #this solves the problem of abstracting methods that 
 #represent tables to parent classes. If the DB table for the child class
 #does not contain a property required by the parent class, a corrisponding error is thrown. 
@@ -13,10 +13,11 @@ module OrmAbstractor do
 
 
 
-private
+
   def test_for_method(m)
-    unless method(m).super_method.defined
-      raise NoMethodError.new("#{self.class.name} does not have required database schema for method {m.to_s}.") 
+    unless method(m).super_method.defined? 
+      raise NoMethodError, "#{self.class.name} does not have required database schema for method {m.to_s}."
     end
   end
-end	
+
+end

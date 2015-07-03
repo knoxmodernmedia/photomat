@@ -1,7 +1,12 @@
 class Product < ActiveRecord::Base
   self.abstract_class = true
-  require OrmAbstractor
-  before_filter :init_abstract
+  include OrmAbstractor
+
+  def initialize
+    init_abstract
+    super
+  end
+
 
   def init_abstract
   	required_child_methods :price, :merchant
