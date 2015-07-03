@@ -1,3 +1,0 @@
-module Uploader do
-
-end

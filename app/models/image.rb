@@ -15,5 +15,9 @@ def preview
 ## io = File.read("#{Rails.root}/upload/image/preview/#{self.id}.jpg")
 end
 
+private
+  def identifier
+    self.id
+  end
 
 end
