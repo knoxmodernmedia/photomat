@@ -1,21 +1,10 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  state_id: 1
+  state: NJ
   lat: 1.5
   lng: 1.5
-  state_id: 1
-  zip: 1
-  name: MyString
-  description: MyText
-  image_id: 1
-
-two:
-  state_id: 1
-  lat: 1.5
-  lng: 1.5
-  state_id: 1
-  zip: 1
-  name: MyString
-  description: MyText
-  image_id: 1
+  zip: 07110
+  name: Nutley Bend
+  description: This amazing turn is very exciting.
+  

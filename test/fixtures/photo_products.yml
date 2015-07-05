@@ -1,17 +1,10 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  image_id: 1
-  location_id: 1
+  image_id: one
+  location: one
   physical_product: false
-  date_taken: 2015-06-27 22:54:58
+  datetime_taken: 2015-06-27 22:54:58
   price: 1.5
-  merchant_id: 1
+  merchant_id: one
 
-two:
-  image_id: 1
-  location_id: 1
-  physical_product: false
-  date_taken: 2015-06-27 22:54:58
-  price: 1.5
-  merchant_id: 1

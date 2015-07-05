@@ -1,21 +1,10 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
-  first_name: MyString
-  last_name: MyString
-  email: MyString
-  street_address: MyString
-  city: MyString
-  state_id: 1
-  zip: 1
-  username: MyString
-
-two:
-  first_name: MyString
-  last_name: MyString
-  email: MyString
-  street_address: MyString
-  city: MyString
-  state_id: 1
-  zip: 1
-  username: MyString
+  first_name: Ethan
+  last_name: knox
+  email: "norton120@gmail.com"
+  street_address: 157 Van Winkle ave.
+  city: Nutley
+  state_id: NJ
+  zip: 07110
+  username: norton120

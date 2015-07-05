@@ -1,7 +1,5 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  merchant_id: 1
+  merchant_id: one
 
-two:
-  merchant_id: 1
