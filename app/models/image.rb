@@ -7,14 +7,15 @@ class Image < Media
 ## and given a file name to match the object id. 
 
 
-  def create(file, user)
+  def create(filepath, user)
     
     image = Image.new(:merchant_id => user.id)
-    saved = File.new("#{Rails.root}/uploads/images/#{image.id}.#{file.extname}")
-    saved.write(file.read)
+    saved = File.new("#{Rails.root}/uploads/images/#{image.id}.#{File.extname(filepath)}")
+    saved.write(File.read(filepath))
+    image.save
     
     # clean up
-    file.delete
+    File.delete(filepath)
 
     image  
   end

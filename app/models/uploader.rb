@@ -1,29 +1,30 @@
-class Uploader
+class Uploader 
   
-  def load(files = [], user)
+  def load(*files, user)
   
     result = files.collect do |f|
-      if file = File.new(f, "w+") then delegate_file(file) end
+      if File.file?(f)
+        delegate_file(f) 
+      end  
     end
     
-    case result.length
+    case result.size
       when 0 then nil
       when 1 then result[0]
-      else result  
-    end 
-
+      else result
+    end
   end	
 
 private
   
-  def delegate_file(file)
-    ext = file.extname.to_sym
+  def delegate_file(filepath)
+    ext = File.extname(filepath).to_sym
     
-    if image_file_extensions.includes? ext
-      Image.create(file, user)
+    if image_file_extensions.include? ext
+      Image.create(filepath, user)
     
-    elsif compressed_file_extensions.includes ext
-      load(file.decompress)
+    #elsif compressed_file_extensions.includes ext
+   #   load(file.decompress)
     end      
 
     
