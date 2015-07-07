@@ -3303,3 +3303,1085 @@ UploaderTest: test_unpacks_zip_file
 -----------------------------------
   [1m[35mMerchant Load (0.3ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
   [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (41.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (794.4ms)[0m  [1mDROP DATABASE IF EXISTS "photomat_test"[0m
+  [1m[35m (6046.6ms)[0m  CREATE DATABASE "photomat_test" ENCODING = 'unicode'
+  [1m[36mSQL (0.2ms)[0m  [1mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (187.9ms)[0m  CREATE TABLE "customers" ("id" serial primary key, "first_name" character varying, "last_name" character varying, "email" character varying, "street_address" character varying, "city" character varying, "state_id" integer, "zip" integer, "username" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (98.1ms)[0m  [1mCREATE TABLE "images" ("id" serial primary key, "merchant_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (119.6ms)[0m  CREATE TABLE "locations" ("id" serial primary key, "state_id" integer, "lat" float, "lng" float, "zip" integer, "name" character varying, "description" text, "image_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (130.9ms)[0m  [1mCREATE TABLE "merchants" ("id" serial primary key, "first_name" character varying, "last_name" character varying, "email" character varying, "street_address" character varying, "city" character varying, "state_id" integer, "zip" integer, "username" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (97.6ms)[0m  CREATE TABLE "photo_products" ("id" serial primary key, "image_id" integer, "location_id" integer, "physical_product" boolean, "datetime_taken" timestamp, "price" float, "merchant_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (186.6ms)[0m  [1mCREATE TABLE "states" ("id" serial primary key, "full_name" character varying, "abbreviation" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (170.4ms)[0m  CREATE TABLE "schema_migrations" ("version" character varying NOT NULL) 
+  [1m[36m (163.6ms)[0m  [1mCREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")[0m
+  [1m[35m (0.5ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (31.2ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150702132528')[0m
+  [1m[35m (32.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150628190516')
+  [1m[36m (11.0ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150628185529')[0m
+  [1m[35m (21.8ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150628194017')
+  [1m[36m (21.6ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150628213320')[0m
+  [1m[35m (21.7ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150628194306')
+  [1m[36m (32.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150628235919')[0m
+  [1m[35m (21.8ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150628185323')
+  [1m[36m (32.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150628024335')[0m
+  [1m[35m (21.8ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150628193453')
+  [1m[36m (21.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150628025458')[0m
+  [1m[35m (44.0ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150628185514')
+  [1m[35mActiveRecord::SchemaMigration Load (0.4ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "customers" DISABLE TRIGGER ALL;ALTER TABLE "images" DISABLE TRIGGER ALL;ALTER TABLE "locations" DISABLE TRIGGER ALL;ALTER TABLE "merchants" DISABLE TRIGGER ALL;ALTER TABLE "photo_products" DISABLE TRIGGER ALL;ALTER TABLE "states" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mFixture Delete (0.7ms)[0m  [1mDELETE FROM "merchants"[0m
+  [1m[35mFixture Insert (0.8ms)[0m  INSERT INTO "merchants" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Debbie', 'Photographer', 'debs@photgraphy.com', '555 Fake lane.', 'Nutley', 0, 3656, 'Debs77', '2015-07-06 23:51:03', '2015-07-06 23:51:03', 980190962)
+  [1m[36mFixture Delete (0.5ms)[0m  [1mDELETE FROM "images"[0m
+  [1m[35mFixture Insert (0.4ms)[0m  INSERT INTO "images" ("merchant_id", "created_at", "updated_at", "id") VALUES (0, '2015-07-06 23:51:04', '2015-07-06 23:51:04', 980190962)
+  [1m[36mFixture Delete (0.6ms)[0m  [1mDELETE FROM "customers"[0m
+  [1m[35mFixture Insert (0.5ms)[0m  INSERT INTO "customers" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Ethan', 'knox', 'norton120@gmail.com', '157 Van Winkle ave.', 'Nutley', 0, 3656, 'norton120', '2015-07-06 23:51:04', '2015-07-06 23:51:04', 980190962)
+  [1m[36mFixture Delete (0.5ms)[0m  [1mDELETE FROM "photo_products"[0m
+  [1m[35mFixture Insert (0.6ms)[0m  INSERT INTO "photo_products" ("image_id", "physical_product", "datetime_taken", "price", "merchant_id", "created_at", "updated_at", "id", "location_id") VALUES (0, 'f', '2015-06-27 22:54:58.000000', 1.5, 0, '2015-07-06 23:51:04', '2015-07-06 23:51:04', 980190962, 980190962)
+  [1m[36mFixture Delete (0.5ms)[0m  [1mDELETE FROM "states"[0m
+  [1m[35mFixture Insert (0.4ms)[0m  INSERT INTO "states" ("full_name", "abbreviation", "created_at", "updated_at", "id") VALUES ('New Jersey', 'NJ', '2015-07-06 23:51:04', '2015-07-06 23:51:04', 959109372)
+  [1m[36mFixture Delete (0.5ms)[0m  [1mDELETE FROM "locations"[0m
+  [1m[35mFixture Insert (0.6ms)[0m  INSERT INTO "locations" ("lat", "lng", "zip", "name", "description", "created_at", "updated_at", "id", "state_id") VALUES (1.5, 1.5, 3656, 'Nutley Bend', 'This amazing turn is very exciting.', '2015-07-06 23:51:04', '2015-07-06 23:51:04', 980190962, 959109372)
+  [1m[36m (25.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  ALTER TABLE "customers" ENABLE TRIGGER ALL;ALTER TABLE "images" ENABLE TRIGGER ALL;ALTER TABLE "locations" ENABLE TRIGGER ALL;ALTER TABLE "merchants" ENABLE TRIGGER ALL;ALTER TABLE "photo_products" ENABLE TRIGGER ALL;ALTER TABLE "states" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+-----------------------------------
+UploaderTest: test_unpacks_zip_file
+-----------------------------------
+  [1m[35mMerchant Load (0.5ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-------------------------------------------------------------
+UploaderTest: test_single_image_file_returns_new_image_object
+-------------------------------------------------------------
+  [1m[36mMerchant Load (0.4ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+-----------------------------------------
+UploaderTest: test_accepts_array_of_files
+-----------------------------------------
+  [1m[35mMerchant Load (0.4ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-----------------------------------------------------
+UploaderTest: test_returns_nil_from_invalid_file_type
+-----------------------------------------------------
+  [1m[36mMerchant Load (0.4ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.1ms)[0m  ALTER TABLE "customers" DISABLE TRIGGER ALL;ALTER TABLE "images" DISABLE TRIGGER ALL;ALTER TABLE "locations" DISABLE TRIGGER ALL;ALTER TABLE "merchants" DISABLE TRIGGER ALL;ALTER TABLE "photo_products" DISABLE TRIGGER ALL;ALTER TABLE "states" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.7ms)[0m  DELETE FROM "merchants"
+  [1m[36mFixture Insert (0.5ms)[0m  [1mINSERT INTO "merchants" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Debbie', 'Photographer', 'debs@photgraphy.com', '555 Fake lane.', 'Nutley', 0, 3656, 'Debs77', '2015-07-06 23:56:26', '2015-07-06 23:56:26', 980190962)[0m
+  [1m[35mFixture Delete (0.6ms)[0m  DELETE FROM "images"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "images" ("merchant_id", "created_at", "updated_at", "id") VALUES (0, '2015-07-06 23:56:26', '2015-07-06 23:56:26', 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "customers"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "customers" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Ethan', 'knox', 'norton120@gmail.com', '157 Van Winkle ave.', 'Nutley', 0, 3656, 'norton120', '2015-07-06 23:56:26', '2015-07-06 23:56:26', 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "photo_products"
+  [1m[36mFixture Insert (0.5ms)[0m  [1mINSERT INTO "photo_products" ("image_id", "physical_product", "datetime_taken", "price", "merchant_id", "created_at", "updated_at", "id", "location_id") VALUES (0, 'f', '2015-06-27 22:54:58.000000', 1.5, 0, '2015-07-06 23:56:26', '2015-07-06 23:56:26', 980190962, 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "states"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "states" ("full_name", "abbreviation", "created_at", "updated_at", "id") VALUES ('New Jersey', 'NJ', '2015-07-06 23:56:26', '2015-07-06 23:56:26', 959109372)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "locations"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "locations" ("lat", "lng", "zip", "name", "description", "created_at", "updated_at", "id", "state_id") VALUES (1.5, 1.5, 3656, 'Nutley Bend', 'This amazing turn is very exciting.', '2015-07-06 23:56:26', '2015-07-06 23:56:26', 980190962, 959109372)[0m
+  [1m[35m (23.3ms)[0m  COMMIT
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "customers" ENABLE TRIGGER ALL;ALTER TABLE "images" ENABLE TRIGGER ALL;ALTER TABLE "locations" ENABLE TRIGGER ALL;ALTER TABLE "merchants" ENABLE TRIGGER ALL;ALTER TABLE "photo_products" ENABLE TRIGGER ALL;ALTER TABLE "states" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-----------------------------------
+UploaderTest: test_unpacks_zip_file
+-----------------------------------
+  [1m[36mMerchant Load (0.5ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-------------------------------------------------------------
+UploaderTest: test_single_image_file_returns_new_image_object
+-------------------------------------------------------------
+  [1m[35mMerchant Load (0.4ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-----------------------------------------------------
+UploaderTest: test_returns_nil_from_invalid_file_type
+-----------------------------------------------------
+  [1m[36mMerchant Load (0.3ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-----------------------------------------
+UploaderTest: test_accepts_array_of_files
+-----------------------------------------
+  [1m[35mMerchant Load (0.4ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.0ms)[0m  ALTER TABLE "customers" DISABLE TRIGGER ALL;ALTER TABLE "images" DISABLE TRIGGER ALL;ALTER TABLE "locations" DISABLE TRIGGER ALL;ALTER TABLE "merchants" DISABLE TRIGGER ALL;ALTER TABLE "photo_products" DISABLE TRIGGER ALL;ALTER TABLE "states" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.2ms)[0m  DELETE FROM "merchants"
+  [1m[36mFixture Insert (0.2ms)[0m  [1mINSERT INTO "merchants" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Debbie', 'Photographer', 'debs@photgraphy.com', '555 Fake lane.', 'Nutley', 0, 3656, 'Debs77', '2015-07-06 23:57:13', '2015-07-06 23:57:13', 980190962)[0m
+  [1m[35mFixture Delete (0.4ms)[0m  DELETE FROM "images"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "images" ("merchant_id", "created_at", "updated_at", "id") VALUES (0, '2015-07-06 23:57:13', '2015-07-06 23:57:13', 980190962)[0m
+  [1m[35mFixture Delete (0.4ms)[0m  DELETE FROM "customers"
+  [1m[36mFixture Insert (0.2ms)[0m  [1mINSERT INTO "customers" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Ethan', 'knox', 'norton120@gmail.com', '157 Van Winkle ave.', 'Nutley', 0, 3656, 'norton120', '2015-07-06 23:57:13', '2015-07-06 23:57:13', 980190962)[0m
+  [1m[35mFixture Delete (0.4ms)[0m  DELETE FROM "photo_products"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "photo_products" ("image_id", "physical_product", "datetime_taken", "price", "merchant_id", "created_at", "updated_at", "id", "location_id") VALUES (0, 'f', '2015-06-27 22:54:58.000000', 1.5, 0, '2015-07-06 23:57:13', '2015-07-06 23:57:13', 980190962, 980190962)[0m
+  [1m[35mFixture Delete (0.4ms)[0m  DELETE FROM "states"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "states" ("full_name", "abbreviation", "created_at", "updated_at", "id") VALUES ('New Jersey', 'NJ', '2015-07-06 23:57:13', '2015-07-06 23:57:13', 959109372)[0m
+  [1m[35mFixture Delete (0.4ms)[0m  DELETE FROM "locations"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "locations" ("lat", "lng", "zip", "name", "description", "created_at", "updated_at", "id", "state_id") VALUES (1.5, 1.5, 3656, 'Nutley Bend', 'This amazing turn is very exciting.', '2015-07-06 23:57:13', '2015-07-06 23:57:13', 980190962, 959109372)[0m
+  [1m[35m (24.4ms)[0m  COMMIT
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "customers" ENABLE TRIGGER ALL;ALTER TABLE "images" ENABLE TRIGGER ALL;ALTER TABLE "locations" ENABLE TRIGGER ALL;ALTER TABLE "merchants" ENABLE TRIGGER ALL;ALTER TABLE "photo_products" ENABLE TRIGGER ALL;ALTER TABLE "states" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-----------------------------------
+UploaderTest: test_unpacks_zip_file
+-----------------------------------
+  [1m[36mMerchant Load (0.4ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-------------------------------------------------------------
+UploaderTest: test_single_image_file_returns_new_image_object
+-------------------------------------------------------------
+  [1m[35mMerchant Load (0.4ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-----------------------------------------------------
+UploaderTest: test_returns_nil_from_invalid_file_type
+-----------------------------------------------------
+  [1m[36mMerchant Load (0.3ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+-----------------------------------------
+UploaderTest: test_accepts_array_of_files
+-----------------------------------------
+  [1m[35mMerchant Load (0.3ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.6ms)[0m  ALTER TABLE "customers" DISABLE TRIGGER ALL;ALTER TABLE "images" DISABLE TRIGGER ALL;ALTER TABLE "locations" DISABLE TRIGGER ALL;ALTER TABLE "merchants" DISABLE TRIGGER ALL;ALTER TABLE "photo_products" DISABLE TRIGGER ALL;ALTER TABLE "states" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.7ms)[0m  DELETE FROM "merchants"
+  [1m[36mFixture Insert (0.5ms)[0m  [1mINSERT INTO "merchants" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Debbie', 'Photographer', 'debs@photgraphy.com', '555 Fake lane.', 'Nutley', 0, 3656, 'Debs77', '2015-07-06 23:57:46', '2015-07-06 23:57:46', 980190962)[0m
+  [1m[35mFixture Delete (0.6ms)[0m  DELETE FROM "images"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "images" ("merchant_id", "created_at", "updated_at", "id") VALUES (0, '2015-07-06 23:57:46', '2015-07-06 23:57:46', 980190962)[0m
+  [1m[35mFixture Delete (0.6ms)[0m  DELETE FROM "customers"
+  [1m[36mFixture Insert (0.5ms)[0m  [1mINSERT INTO "customers" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Ethan', 'knox', 'norton120@gmail.com', '157 Van Winkle ave.', 'Nutley', 0, 3656, 'norton120', '2015-07-06 23:57:46', '2015-07-06 23:57:46', 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "photo_products"
+  [1m[36mFixture Insert (0.5ms)[0m  [1mINSERT INTO "photo_products" ("image_id", "physical_product", "datetime_taken", "price", "merchant_id", "created_at", "updated_at", "id", "location_id") VALUES (0, 'f', '2015-06-27 22:54:58.000000', 1.5, 0, '2015-07-06 23:57:46', '2015-07-06 23:57:46', 980190962, 980190962)[0m
+  [1m[35mFixture Delete (0.4ms)[0m  DELETE FROM "states"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "states" ("full_name", "abbreviation", "created_at", "updated_at", "id") VALUES ('New Jersey', 'NJ', '2015-07-06 23:57:46', '2015-07-06 23:57:46', 959109372)[0m
+  [1m[35mFixture Delete (0.6ms)[0m  DELETE FROM "locations"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "locations" ("lat", "lng", "zip", "name", "description", "created_at", "updated_at", "id", "state_id") VALUES (1.5, 1.5, 3656, 'Nutley Bend', 'This amazing turn is very exciting.', '2015-07-06 23:57:46', '2015-07-06 23:57:46', 980190962, 959109372)[0m
+  [1m[35m (26.4ms)[0m  COMMIT
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "customers" ENABLE TRIGGER ALL;ALTER TABLE "images" ENABLE TRIGGER ALL;ALTER TABLE "locations" ENABLE TRIGGER ALL;ALTER TABLE "merchants" ENABLE TRIGGER ALL;ALTER TABLE "photo_products" ENABLE TRIGGER ALL;ALTER TABLE "states" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-----------------------------------
+UploaderTest: test_unpacks_zip_file
+-----------------------------------
+  [1m[36mMerchant Load (0.4ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+-------------------------------------------------------------
+UploaderTest: test_single_image_file_returns_new_image_object
+-------------------------------------------------------------
+  [1m[35mMerchant Load (0.5ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-----------------------------------------
+UploaderTest: test_accepts_array_of_files
+-----------------------------------------
+  [1m[36mMerchant Load (0.4ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+-----------------------------------------------------
+UploaderTest: test_returns_nil_from_invalid_file_type
+-----------------------------------------------------
+  [1m[35mMerchant Load (0.4ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.7ms)[0m  ALTER TABLE "customers" DISABLE TRIGGER ALL;ALTER TABLE "images" DISABLE TRIGGER ALL;ALTER TABLE "locations" DISABLE TRIGGER ALL;ALTER TABLE "merchants" DISABLE TRIGGER ALL;ALTER TABLE "photo_products" DISABLE TRIGGER ALL;ALTER TABLE "states" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.7ms)[0m  DELETE FROM "merchants"
+  [1m[36mFixture Insert (0.5ms)[0m  [1mINSERT INTO "merchants" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Debbie', 'Photographer', 'debs@photgraphy.com', '555 Fake lane.', 'Nutley', 0, 3656, 'Debs77', '2015-07-06 23:58:18', '2015-07-06 23:58:18', 980190962)[0m
+  [1m[35mFixture Delete (0.4ms)[0m  DELETE FROM "images"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "images" ("merchant_id", "created_at", "updated_at", "id") VALUES (0, '2015-07-06 23:58:18', '2015-07-06 23:58:18', 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "customers"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "customers" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Ethan', 'knox', 'norton120@gmail.com', '157 Van Winkle ave.', 'Nutley', 0, 3656, 'norton120', '2015-07-06 23:58:18', '2015-07-06 23:58:18', 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "photo_products"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "photo_products" ("image_id", "physical_product", "datetime_taken", "price", "merchant_id", "created_at", "updated_at", "id", "location_id") VALUES (0, 'f', '2015-06-27 22:54:58.000000', 1.5, 0, '2015-07-06 23:58:18', '2015-07-06 23:58:18', 980190962, 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "states"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "states" ("full_name", "abbreviation", "created_at", "updated_at", "id") VALUES ('New Jersey', 'NJ', '2015-07-06 23:58:18', '2015-07-06 23:58:18', 959109372)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "locations"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "locations" ("lat", "lng", "zip", "name", "description", "created_at", "updated_at", "id", "state_id") VALUES (1.5, 1.5, 3656, 'Nutley Bend', 'This amazing turn is very exciting.', '2015-07-06 23:58:18', '2015-07-06 23:58:18', 980190962, 959109372)[0m
+  [1m[35m (23.6ms)[0m  COMMIT
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "customers" ENABLE TRIGGER ALL;ALTER TABLE "images" ENABLE TRIGGER ALL;ALTER TABLE "locations" ENABLE TRIGGER ALL;ALTER TABLE "merchants" ENABLE TRIGGER ALL;ALTER TABLE "photo_products" ENABLE TRIGGER ALL;ALTER TABLE "states" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-------------------------------------------------------------
+UploaderTest: test_single_image_file_returns_new_image_object
+-------------------------------------------------------------
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-----------------------------------------
+UploaderTest: test_accepts_array_of_files
+-----------------------------------------
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-----------------------------------------------------
+UploaderTest: test_returns_nil_from_invalid_file_type
+-----------------------------------------------------
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-----------------------------------
+UploaderTest: test_unpacks_zip_file
+-----------------------------------
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.0ms)[0m  ALTER TABLE "customers" DISABLE TRIGGER ALL;ALTER TABLE "images" DISABLE TRIGGER ALL;ALTER TABLE "locations" DISABLE TRIGGER ALL;ALTER TABLE "merchants" DISABLE TRIGGER ALL;ALTER TABLE "photo_products" DISABLE TRIGGER ALL;ALTER TABLE "states" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.6ms)[0m  DELETE FROM "merchants"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "merchants" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Debbie', 'Photographer', 'debs@photgraphy.com', '555 Fake lane.', 'Nutley', 0, 3656, 'Debs77', '2015-07-06 23:58:52', '2015-07-06 23:58:52', 980190962)[0m
+  [1m[35mFixture Delete (0.4ms)[0m  DELETE FROM "images"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "images" ("merchant_id", "created_at", "updated_at", "id") VALUES (0, '2015-07-06 23:58:52', '2015-07-06 23:58:52', 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "customers"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "customers" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Ethan', 'knox', 'norton120@gmail.com', '157 Van Winkle ave.', 'Nutley', 0, 3656, 'norton120', '2015-07-06 23:58:52', '2015-07-06 23:58:52', 980190962)[0m
+  [1m[35mFixture Delete (0.6ms)[0m  DELETE FROM "photo_products"
+  [1m[36mFixture Insert (0.6ms)[0m  [1mINSERT INTO "photo_products" ("image_id", "physical_product", "datetime_taken", "price", "merchant_id", "created_at", "updated_at", "id", "location_id") VALUES (0, 'f', '2015-06-27 22:54:58.000000', 1.5, 0, '2015-07-06 23:58:52', '2015-07-06 23:58:52', 980190962, 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "states"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "states" ("full_name", "abbreviation", "created_at", "updated_at", "id") VALUES ('New Jersey', 'NJ', '2015-07-06 23:58:52', '2015-07-06 23:58:52', 959109372)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "locations"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "locations" ("lat", "lng", "zip", "name", "description", "created_at", "updated_at", "id", "state_id") VALUES (1.5, 1.5, 3656, 'Nutley Bend', 'This amazing turn is very exciting.', '2015-07-06 23:58:52', '2015-07-06 23:58:52', 980190962, 959109372)[0m
+  [1m[35m (25.1ms)[0m  COMMIT
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "customers" ENABLE TRIGGER ALL;ALTER TABLE "images" ENABLE TRIGGER ALL;ALTER TABLE "locations" ENABLE TRIGGER ALL;ALTER TABLE "merchants" ENABLE TRIGGER ALL;ALTER TABLE "photo_products" ENABLE TRIGGER ALL;ALTER TABLE "states" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-----------------------------------
+UploaderTest: test_unpacks_zip_file
+-----------------------------------
+  [1m[36mMerchant Load (0.4ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+-------------------------------------------------------------
+UploaderTest: test_single_image_file_returns_new_image_object
+-------------------------------------------------------------
+  [1m[35mMerchant Load (0.5ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-----------------------------------------------------
+UploaderTest: test_returns_nil_from_invalid_file_type
+-----------------------------------------------------
+  [1m[36mMerchant Load (0.4ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+-----------------------------------------
+UploaderTest: test_accepts_array_of_files
+-----------------------------------------
+  [1m[35mMerchant Load (0.4ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[36m (232.4ms)[0m  [1mDROP DATABASE IF EXISTS "photomat_test"[0m
+  [1m[35m (755.4ms)[0m  CREATE DATABASE "photomat_test" ENCODING = 'unicode'
+  [1m[36mSQL (0.5ms)[0m  [1mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (116.7ms)[0m  CREATE TABLE "customers" ("id" serial primary key, "first_name" character varying, "last_name" character varying, "email" character varying, "street_address" character varying, "city" character varying, "state_id" integer, "zip" integer, "username" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (109.8ms)[0m  [1mCREATE TABLE "images" ("id" serial primary key, "merchant_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL, "file_name" character varying) [0m
+  [1m[35m (97.5ms)[0m  CREATE TABLE "locations" ("id" serial primary key, "state_id" integer, "lat" float, "lng" float, "zip" integer, "name" character varying, "description" text, "image_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (109.1ms)[0m  [1mCREATE TABLE "merchants" ("id" serial primary key, "first_name" character varying, "last_name" character varying, "email" character varying, "street_address" character varying, "city" character varying, "state_id" integer, "zip" integer, "username" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (75.1ms)[0m  CREATE TABLE "photo_products" ("id" serial primary key, "image_id" integer, "location_id" integer, "physical_product" boolean, "datetime_taken" timestamp, "price" float, "merchant_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (109.3ms)[0m  [1mCREATE TABLE "states" ("id" serial primary key, "full_name" character varying, "abbreviation" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (78.2ms)[0m  CREATE TABLE "schema_migrations" ("version" character varying NOT NULL) 
+  [1m[36m (51.7ms)[0m  [1mCREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")[0m
+  [1m[35m (0.6ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (9.2ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150707004434')[0m
+  [1m[35m (10.7ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150628190516')
+  [1m[36m (10.9ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150628185529')[0m
+  [1m[35m (10.8ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150628194017')
+  [1m[36m (10.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150702132528')[0m
+  [1m[35m (10.8ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150628213320')
+  [1m[36m (10.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150628194306')[0m
+  [1m[35m (10.8ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150628235919')
+  [1m[36m (10.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150628185323')[0m
+  [1m[35m (10.9ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150628024335')
+  [1m[36m (10.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150628193453')[0m
+  [1m[35m (11.0ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150628025458')
+  [1m[36m (10.6ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150628185514')[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.4ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (1.4ms)[0m  [1mALTER TABLE "customers" DISABLE TRIGGER ALL;ALTER TABLE "images" DISABLE TRIGGER ALL;ALTER TABLE "locations" DISABLE TRIGGER ALL;ALTER TABLE "merchants" DISABLE TRIGGER ALL;ALTER TABLE "photo_products" DISABLE TRIGGER ALL;ALTER TABLE "states" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mFixture Delete (0.5ms)[0m  [1mDELETE FROM "merchants"[0m
+  [1m[35mFixture Insert (0.6ms)[0m  INSERT INTO "merchants" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Debbie', 'Photographer', 'debs@photgraphy.com', '555 Fake lane.', 'Nutley', 0, 3656, 'Debs77', '2015-07-07 00:59:00', '2015-07-07 00:59:00', 980190962)
+  [1m[36mFixture Delete (0.3ms)[0m  [1mDELETE FROM "images"[0m
+  [1m[35mFixture Insert (0.3ms)[0m  INSERT INTO "images" ("merchant_id", "file_name", "created_at", "updated_at", "id") VALUES (0, '3240912393424.jpg', '2015-07-07 00:59:00', '2015-07-07 00:59:00', 980190962)
+  [1m[36mFixture Delete (0.4ms)[0m  [1mDELETE FROM "customers"[0m
+  [1m[35mFixture Insert (0.3ms)[0m  INSERT INTO "customers" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Ethan', 'knox', 'norton120@gmail.com', '157 Van Winkle ave.', 'Nutley', 0, 3656, 'norton120', '2015-07-07 00:59:00', '2015-07-07 00:59:00', 980190962)
+  [1m[36mFixture Delete (0.3ms)[0m  [1mDELETE FROM "photo_products"[0m
+  [1m[35mFixture Insert (0.4ms)[0m  INSERT INTO "photo_products" ("image_id", "physical_product", "datetime_taken", "price", "merchant_id", "created_at", "updated_at", "id", "location_id") VALUES (0, 'f', '2015-06-27 22:54:58.000000', 1.5, 0, '2015-07-07 00:59:00', '2015-07-07 00:59:00', 980190962, 980190962)
+  [1m[36mFixture Delete (0.5ms)[0m  [1mDELETE FROM "states"[0m
+  [1m[35mFixture Insert (0.4ms)[0m  INSERT INTO "states" ("full_name", "abbreviation", "created_at", "updated_at", "id") VALUES ('New Jersey', 'NJ', '2015-07-07 00:59:00', '2015-07-07 00:59:00', 959109372)
+  [1m[36mFixture Delete (0.5ms)[0m  [1mDELETE FROM "locations"[0m
+  [1m[35mFixture Insert (0.4ms)[0m  INSERT INTO "locations" ("lat", "lng", "zip", "name", "description", "created_at", "updated_at", "id", "state_id") VALUES (1.5, 1.5, 3656, 'Nutley Bend', 'This amazing turn is very exciting.', '2015-07-07 00:59:00', '2015-07-07 00:59:00', 980190962, 959109372)
+  [1m[36m (7.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.5ms)[0m  ALTER TABLE "customers" ENABLE TRIGGER ALL;ALTER TABLE "images" ENABLE TRIGGER ALL;ALTER TABLE "locations" ENABLE TRIGGER ALL;ALTER TABLE "merchants" ENABLE TRIGGER ALL;ALTER TABLE "photo_products" ENABLE TRIGGER ALL;ALTER TABLE "states" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+-----------------------------------
+UploaderTest: test_unpacks_zip_file
+-----------------------------------
+  [1m[35mMerchant Load (0.5ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-----------------------------------------------------
+UploaderTest: test_returns_nil_from_invalid_file_type
+-----------------------------------------------------
+  [1m[36mMerchant Load (0.4ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-------------------------------------------------------------
+UploaderTest: test_single_image_file_returns_new_image_object
+-------------------------------------------------------------
+  [1m[35mMerchant Load (0.3ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-----------------------------------------
+UploaderTest: test_accepts_array_of_files
+-----------------------------------------
+  [1m[36mMerchant Load (0.3ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.1ms)[0m  ALTER TABLE "customers" DISABLE TRIGGER ALL;ALTER TABLE "images" DISABLE TRIGGER ALL;ALTER TABLE "locations" DISABLE TRIGGER ALL;ALTER TABLE "merchants" DISABLE TRIGGER ALL;ALTER TABLE "photo_products" DISABLE TRIGGER ALL;ALTER TABLE "states" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.6ms)[0m  [1mALTER TABLE "customers" ENABLE TRIGGER ALL;ALTER TABLE "images" ENABLE TRIGGER ALL;ALTER TABLE "locations" ENABLE TRIGGER ALL;ALTER TABLE "merchants" ENABLE TRIGGER ALL;ALTER TABLE "photo_products" ENABLE TRIGGER ALL;ALTER TABLE "states" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.7ms)[0m  ALTER TABLE "customers" DISABLE TRIGGER ALL;ALTER TABLE "images" DISABLE TRIGGER ALL;ALTER TABLE "locations" DISABLE TRIGGER ALL;ALTER TABLE "merchants" DISABLE TRIGGER ALL;ALTER TABLE "photo_products" DISABLE TRIGGER ALL;ALTER TABLE "states" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "customers" ENABLE TRIGGER ALL;ALTER TABLE "images" ENABLE TRIGGER ALL;ALTER TABLE "locations" ENABLE TRIGGER ALL;ALTER TABLE "merchants" ENABLE TRIGGER ALL;ALTER TABLE "photo_products" ENABLE TRIGGER ALL;ALTER TABLE "states" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.5ms)[0m  ALTER TABLE "customers" DISABLE TRIGGER ALL;ALTER TABLE "images" DISABLE TRIGGER ALL;ALTER TABLE "locations" DISABLE TRIGGER ALL;ALTER TABLE "merchants" DISABLE TRIGGER ALL;ALTER TABLE "photo_products" DISABLE TRIGGER ALL;ALTER TABLE "states" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "customers" ENABLE TRIGGER ALL;ALTER TABLE "images" ENABLE TRIGGER ALL;ALTER TABLE "locations" ENABLE TRIGGER ALL;ALTER TABLE "merchants" ENABLE TRIGGER ALL;ALTER TABLE "photo_products" ENABLE TRIGGER ALL;ALTER TABLE "states" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.6ms)[0m  ALTER TABLE "customers" DISABLE TRIGGER ALL;ALTER TABLE "images" DISABLE TRIGGER ALL;ALTER TABLE "locations" DISABLE TRIGGER ALL;ALTER TABLE "merchants" DISABLE TRIGGER ALL;ALTER TABLE "photo_products" DISABLE TRIGGER ALL;ALTER TABLE "states" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "customers" ENABLE TRIGGER ALL;ALTER TABLE "images" ENABLE TRIGGER ALL;ALTER TABLE "locations" ENABLE TRIGGER ALL;ALTER TABLE "merchants" ENABLE TRIGGER ALL;ALTER TABLE "photo_products" ENABLE TRIGGER ALL;ALTER TABLE "states" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.1ms)[0m  ALTER TABLE "customers" DISABLE TRIGGER ALL;ALTER TABLE "images" DISABLE TRIGGER ALL;ALTER TABLE "locations" DISABLE TRIGGER ALL;ALTER TABLE "merchants" DISABLE TRIGGER ALL;ALTER TABLE "photo_products" DISABLE TRIGGER ALL;ALTER TABLE "states" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "merchants"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "merchants" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Debbie', 'Photographer', 'debs@photgraphy.com', '555 Fake lane.', 'Nutley', 0, 3656, 'Debs77', '2015-07-07 01:03:34', '2015-07-07 01:03:34', 980190962)[0m
+  [1m[35mFixture Delete (0.4ms)[0m  DELETE FROM "images"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "images" ("merchant_id", "file_name", "created_at", "updated_at", "id") VALUES (0, '3240912393424.jpg', '2015-07-07 01:03:34', '2015-07-07 01:03:34', 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "customers"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "customers" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Ethan', 'knox', 'norton120@gmail.com', '157 Van Winkle ave.', 'Nutley', 0, 3656, 'norton120', '2015-07-07 01:03:34', '2015-07-07 01:03:34', 980190962)[0m
+  [1m[35mFixture Delete (0.6ms)[0m  DELETE FROM "photo_products"
+  [1m[36mFixture Insert (0.5ms)[0m  [1mINSERT INTO "photo_products" ("image_id", "physical_product", "datetime_taken", "price", "merchant_id", "created_at", "updated_at", "id", "location_id") VALUES (0, 'f', '2015-06-27 22:54:58.000000', 1.5, 0, '2015-07-07 01:03:34', '2015-07-07 01:03:34', 980190962, 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "states"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "states" ("full_name", "abbreviation", "created_at", "updated_at", "id") VALUES ('New Jersey', 'NJ', '2015-07-07 01:03:34', '2015-07-07 01:03:34', 959109372)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "locations"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "locations" ("lat", "lng", "zip", "name", "description", "created_at", "updated_at", "id", "state_id") VALUES (1.5, 1.5, 3656, 'Nutley Bend', 'This amazing turn is very exciting.', '2015-07-07 01:03:34', '2015-07-07 01:03:34', 980190962, 959109372)[0m
+  [1m[35m (25.9ms)[0m  COMMIT
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "customers" ENABLE TRIGGER ALL;ALTER TABLE "images" ENABLE TRIGGER ALL;ALTER TABLE "locations" ENABLE TRIGGER ALL;ALTER TABLE "merchants" ENABLE TRIGGER ALL;ALTER TABLE "photo_products" ENABLE TRIGGER ALL;ALTER TABLE "states" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-----------------------------------------
+UploaderTest: test_accepts_array_of_files
+-----------------------------------------
+  [1m[36mMerchant Load (0.5ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-------------------------------------------------------------
+UploaderTest: test_single_image_file_returns_new_image_object
+-------------------------------------------------------------
+  [1m[35mMerchant Load (0.4ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-----------------------------------
+UploaderTest: test_unpacks_zip_file
+-----------------------------------
+  [1m[36mMerchant Load (0.3ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-----------------------------------------------------
+UploaderTest: test_returns_nil_from_invalid_file_type
+-----------------------------------------------------
+  [1m[35mMerchant Load (0.3ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.1ms)[0m  ALTER TABLE "customers" DISABLE TRIGGER ALL;ALTER TABLE "images" DISABLE TRIGGER ALL;ALTER TABLE "locations" DISABLE TRIGGER ALL;ALTER TABLE "merchants" DISABLE TRIGGER ALL;ALTER TABLE "photo_products" DISABLE TRIGGER ALL;ALTER TABLE "states" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.7ms)[0m  DELETE FROM "merchants"
+  [1m[36mFixture Insert (0.6ms)[0m  [1mINSERT INTO "merchants" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Debbie', 'Photographer', 'debs@photgraphy.com', '555 Fake lane.', 'Nutley', 0, 3656, 'Debs77', '2015-07-07 01:04:26', '2015-07-07 01:04:26', 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "images"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "images" ("merchant_id", "file_name", "created_at", "updated_at", "id") VALUES (0, '3240912393424.jpg', '2015-07-07 01:04:26', '2015-07-07 01:04:26', 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "customers"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "customers" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Ethan', 'knox', 'norton120@gmail.com', '157 Van Winkle ave.', 'Nutley', 0, 3656, 'norton120', '2015-07-07 01:04:26', '2015-07-07 01:04:26', 980190962)[0m
+  [1m[35mFixture Delete (0.4ms)[0m  DELETE FROM "photo_products"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "photo_products" ("image_id", "physical_product", "datetime_taken", "price", "merchant_id", "created_at", "updated_at", "id", "location_id") VALUES (0, 'f', '2015-06-27 22:54:58.000000', 1.5, 0, '2015-07-07 01:04:26', '2015-07-07 01:04:26', 980190962, 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "states"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "states" ("full_name", "abbreviation", "created_at", "updated_at", "id") VALUES ('New Jersey', 'NJ', '2015-07-07 01:04:26', '2015-07-07 01:04:26', 959109372)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "locations"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "locations" ("lat", "lng", "zip", "name", "description", "created_at", "updated_at", "id", "state_id") VALUES (1.5, 1.5, 3656, 'Nutley Bend', 'This amazing turn is very exciting.', '2015-07-07 01:04:26', '2015-07-07 01:04:26', 980190962, 959109372)[0m
+  [1m[35m (27.9ms)[0m  COMMIT
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "customers" ENABLE TRIGGER ALL;ALTER TABLE "images" ENABLE TRIGGER ALL;ALTER TABLE "locations" ENABLE TRIGGER ALL;ALTER TABLE "merchants" ENABLE TRIGGER ALL;ALTER TABLE "photo_products" ENABLE TRIGGER ALL;ALTER TABLE "states" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-----------------------------------------------------
+UploaderTest: test_returns_nil_from_invalid_file_type
+-----------------------------------------------------
+  [1m[36mMerchant Load (0.5ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-----------------------------------
+UploaderTest: test_unpacks_zip_file
+-----------------------------------
+  [1m[35mMerchant Load (0.5ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-------------------------------------------------------------
+UploaderTest: test_single_image_file_returns_new_image_object
+-------------------------------------------------------------
+  [1m[36mMerchant Load (0.5ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-----------------------------------------
+UploaderTest: test_accepts_array_of_files
+-----------------------------------------
+  [1m[35mMerchant Load (0.5ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.1ms)[0m  ALTER TABLE "customers" DISABLE TRIGGER ALL;ALTER TABLE "images" DISABLE TRIGGER ALL;ALTER TABLE "locations" DISABLE TRIGGER ALL;ALTER TABLE "merchants" DISABLE TRIGGER ALL;ALTER TABLE "photo_products" DISABLE TRIGGER ALL;ALTER TABLE "states" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.7ms)[0m  DELETE FROM "merchants"
+  [1m[36mFixture Insert (0.5ms)[0m  [1mINSERT INTO "merchants" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Debbie', 'Photographer', 'debs@photgraphy.com', '555 Fake lane.', 'Nutley', 0, 3656, 'Debs77', '2015-07-07 01:04:46', '2015-07-07 01:04:46', 980190962)[0m
+  [1m[35mFixture Delete (0.4ms)[0m  DELETE FROM "images"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "images" ("merchant_id", "file_name", "created_at", "updated_at", "id") VALUES (0, '3240912393424.jpg', '2015-07-07 01:04:46', '2015-07-07 01:04:46', 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "customers"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "customers" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Ethan', 'knox', 'norton120@gmail.com', '157 Van Winkle ave.', 'Nutley', 0, 3656, 'norton120', '2015-07-07 01:04:46', '2015-07-07 01:04:46', 980190962)[0m
+  [1m[35mFixture Delete (0.6ms)[0m  DELETE FROM "photo_products"
+  [1m[36mFixture Insert (0.5ms)[0m  [1mINSERT INTO "photo_products" ("image_id", "physical_product", "datetime_taken", "price", "merchant_id", "created_at", "updated_at", "id", "location_id") VALUES (0, 'f', '2015-06-27 22:54:58.000000', 1.5, 0, '2015-07-07 01:04:46', '2015-07-07 01:04:46', 980190962, 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "states"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "states" ("full_name", "abbreviation", "created_at", "updated_at", "id") VALUES ('New Jersey', 'NJ', '2015-07-07 01:04:46', '2015-07-07 01:04:46', 959109372)[0m
+  [1m[35mFixture Delete (0.6ms)[0m  DELETE FROM "locations"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "locations" ("lat", "lng", "zip", "name", "description", "created_at", "updated_at", "id", "state_id") VALUES (1.5, 1.5, 3656, 'Nutley Bend', 'This amazing turn is very exciting.', '2015-07-07 01:04:46', '2015-07-07 01:04:46', 980190962, 959109372)[0m
+  [1m[35m (19.1ms)[0m  COMMIT
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "customers" ENABLE TRIGGER ALL;ALTER TABLE "images" ENABLE TRIGGER ALL;ALTER TABLE "locations" ENABLE TRIGGER ALL;ALTER TABLE "merchants" ENABLE TRIGGER ALL;ALTER TABLE "photo_products" ENABLE TRIGGER ALL;ALTER TABLE "states" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-----------------------------------------
+UploaderTest: test_accepts_array_of_files
+-----------------------------------------
+  [1m[36mMerchant Load (0.4ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-----------------------------------------------------
+UploaderTest: test_returns_nil_from_invalid_file_type
+-----------------------------------------------------
+  [1m[35mMerchant Load (0.4ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-------------------------------------------------------------
+UploaderTest: test_single_image_file_returns_new_image_object
+-------------------------------------------------------------
+  [1m[36mMerchant Load (0.4ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-----------------------------------
+UploaderTest: test_unpacks_zip_file
+-----------------------------------
+  [1m[35mMerchant Load (0.4ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.1ms)[0m  ALTER TABLE "customers" DISABLE TRIGGER ALL;ALTER TABLE "images" DISABLE TRIGGER ALL;ALTER TABLE "locations" DISABLE TRIGGER ALL;ALTER TABLE "merchants" DISABLE TRIGGER ALL;ALTER TABLE "photo_products" DISABLE TRIGGER ALL;ALTER TABLE "states" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.6ms)[0m  DELETE FROM "merchants"
+  [1m[36mFixture Insert (0.5ms)[0m  [1mINSERT INTO "merchants" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Debbie', 'Photographer', 'debs@photgraphy.com', '555 Fake lane.', 'Nutley', 0, 3656, 'Debs77', '2015-07-07 01:04:59', '2015-07-07 01:04:59', 980190962)[0m
+  [1m[35mFixture Delete (0.4ms)[0m  DELETE FROM "images"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "images" ("merchant_id", "file_name", "created_at", "updated_at", "id") VALUES (0, '3240912393424.jpg', '2015-07-07 01:04:59', '2015-07-07 01:04:59', 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "customers"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "customers" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Ethan', 'knox', 'norton120@gmail.com', '157 Van Winkle ave.', 'Nutley', 0, 3656, 'norton120', '2015-07-07 01:04:59', '2015-07-07 01:04:59', 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "photo_products"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "photo_products" ("image_id", "physical_product", "datetime_taken", "price", "merchant_id", "created_at", "updated_at", "id", "location_id") VALUES (0, 'f', '2015-06-27 22:54:58.000000', 1.5, 0, '2015-07-07 01:04:59', '2015-07-07 01:04:59', 980190962, 980190962)[0m
+  [1m[35mFixture Delete (0.4ms)[0m  DELETE FROM "states"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "states" ("full_name", "abbreviation", "created_at", "updated_at", "id") VALUES ('New Jersey', 'NJ', '2015-07-07 01:04:59', '2015-07-07 01:04:59', 959109372)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "locations"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "locations" ("lat", "lng", "zip", "name", "description", "created_at", "updated_at", "id", "state_id") VALUES (1.5, 1.5, 3656, 'Nutley Bend', 'This amazing turn is very exciting.', '2015-07-07 01:04:59', '2015-07-07 01:04:59', 980190962, 959109372)[0m
+  [1m[35m (20.5ms)[0m  COMMIT
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "customers" ENABLE TRIGGER ALL;ALTER TABLE "images" ENABLE TRIGGER ALL;ALTER TABLE "locations" ENABLE TRIGGER ALL;ALTER TABLE "merchants" ENABLE TRIGGER ALL;ALTER TABLE "photo_products" ENABLE TRIGGER ALL;ALTER TABLE "states" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-----------------------------------------
+UploaderTest: test_accepts_array_of_files
+-----------------------------------------
+  [1m[36mMerchant Load (0.5ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+-----------------------------------------------------
+UploaderTest: test_returns_nil_from_invalid_file_type
+-----------------------------------------------------
+  [1m[35mMerchant Load (0.5ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-------------------------------------------------------------
+UploaderTest: test_single_image_file_returns_new_image_object
+-------------------------------------------------------------
+  [1m[36mMerchant Load (0.4ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+-----------------------------------
+UploaderTest: test_unpacks_zip_file
+-----------------------------------
+  [1m[35mMerchant Load (0.4ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.1ms)[0m  ALTER TABLE "customers" DISABLE TRIGGER ALL;ALTER TABLE "images" DISABLE TRIGGER ALL;ALTER TABLE "locations" DISABLE TRIGGER ALL;ALTER TABLE "merchants" DISABLE TRIGGER ALL;ALTER TABLE "photo_products" DISABLE TRIGGER ALL;ALTER TABLE "states" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.7ms)[0m  DELETE FROM "merchants"
+  [1m[36mFixture Insert (0.5ms)[0m  [1mINSERT INTO "merchants" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Debbie', 'Photographer', 'debs@photgraphy.com', '555 Fake lane.', 'Nutley', 0, 3656, 'Debs77', '2015-07-07 01:05:28', '2015-07-07 01:05:28', 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "images"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "images" ("merchant_id", "file_name", "created_at", "updated_at", "id") VALUES (0, '3240912393424.jpg', '2015-07-07 01:05:28', '2015-07-07 01:05:28', 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "customers"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "customers" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Ethan', 'knox', 'norton120@gmail.com', '157 Van Winkle ave.', 'Nutley', 0, 3656, 'norton120', '2015-07-07 01:05:28', '2015-07-07 01:05:28', 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "photo_products"
+  [1m[36mFixture Insert (0.6ms)[0m  [1mINSERT INTO "photo_products" ("image_id", "physical_product", "datetime_taken", "price", "merchant_id", "created_at", "updated_at", "id", "location_id") VALUES (0, 'f', '2015-06-27 22:54:58.000000', 1.5, 0, '2015-07-07 01:05:28', '2015-07-07 01:05:28', 980190962, 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "states"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "states" ("full_name", "abbreviation", "created_at", "updated_at", "id") VALUES ('New Jersey', 'NJ', '2015-07-07 01:05:28', '2015-07-07 01:05:28', 959109372)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "locations"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "locations" ("lat", "lng", "zip", "name", "description", "created_at", "updated_at", "id", "state_id") VALUES (1.5, 1.5, 3656, 'Nutley Bend', 'This amazing turn is very exciting.', '2015-07-07 01:05:28', '2015-07-07 01:05:28', 980190962, 959109372)[0m
+  [1m[35m (23.0ms)[0m  COMMIT
+  [1m[36m (0.6ms)[0m  [1mALTER TABLE "customers" ENABLE TRIGGER ALL;ALTER TABLE "images" ENABLE TRIGGER ALL;ALTER TABLE "locations" ENABLE TRIGGER ALL;ALTER TABLE "merchants" ENABLE TRIGGER ALL;ALTER TABLE "photo_products" ENABLE TRIGGER ALL;ALTER TABLE "states" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-----------------------------------
+UploaderTest: test_unpacks_zip_file
+-----------------------------------
+  [1m[36mMerchant Load (0.5ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+-----------------------------------------------------
+UploaderTest: test_returns_nil_from_invalid_file_type
+-----------------------------------------------------
+  [1m[35mMerchant Load (0.5ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-------------------------------------------------------------
+UploaderTest: test_single_image_file_returns_new_image_object
+-------------------------------------------------------------
+  [1m[36mMerchant Load (0.4ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-----------------------------------------
+UploaderTest: test_accepts_array_of_files
+-----------------------------------------
+  [1m[35mMerchant Load (0.4ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.1ms)[0m  ALTER TABLE "customers" DISABLE TRIGGER ALL;ALTER TABLE "images" DISABLE TRIGGER ALL;ALTER TABLE "locations" DISABLE TRIGGER ALL;ALTER TABLE "merchants" DISABLE TRIGGER ALL;ALTER TABLE "photo_products" DISABLE TRIGGER ALL;ALTER TABLE "states" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.7ms)[0m  DELETE FROM "merchants"
+  [1m[36mFixture Insert (0.5ms)[0m  [1mINSERT INTO "merchants" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Debbie', 'Photographer', 'debs@photgraphy.com', '555 Fake lane.', 'Nutley', 0, 3656, 'Debs77', '2015-07-07 01:05:51', '2015-07-07 01:05:51', 980190962)[0m
+  [1m[35mFixture Delete (0.6ms)[0m  DELETE FROM "images"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "images" ("merchant_id", "file_name", "created_at", "updated_at", "id") VALUES (0, '3240912393424.jpg', '2015-07-07 01:05:51', '2015-07-07 01:05:51', 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "customers"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "customers" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Ethan', 'knox', 'norton120@gmail.com', '157 Van Winkle ave.', 'Nutley', 0, 3656, 'norton120', '2015-07-07 01:05:51', '2015-07-07 01:05:51', 980190962)[0m
+  [1m[35mFixture Delete (0.4ms)[0m  DELETE FROM "photo_products"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "photo_products" ("image_id", "physical_product", "datetime_taken", "price", "merchant_id", "created_at", "updated_at", "id", "location_id") VALUES (0, 'f', '2015-06-27 22:54:58.000000', 1.5, 0, '2015-07-07 01:05:51', '2015-07-07 01:05:51', 980190962, 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "states"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "states" ("full_name", "abbreviation", "created_at", "updated_at", "id") VALUES ('New Jersey', 'NJ', '2015-07-07 01:05:51', '2015-07-07 01:05:51', 959109372)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "locations"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "locations" ("lat", "lng", "zip", "name", "description", "created_at", "updated_at", "id", "state_id") VALUES (1.5, 1.5, 3656, 'Nutley Bend', 'This amazing turn is very exciting.', '2015-07-07 01:05:51', '2015-07-07 01:05:51', 980190962, 959109372)[0m
+  [1m[35m (27.2ms)[0m  COMMIT
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "customers" ENABLE TRIGGER ALL;ALTER TABLE "images" ENABLE TRIGGER ALL;ALTER TABLE "locations" ENABLE TRIGGER ALL;ALTER TABLE "merchants" ENABLE TRIGGER ALL;ALTER TABLE "photo_products" ENABLE TRIGGER ALL;ALTER TABLE "states" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-----------------------------------
+UploaderTest: test_unpacks_zip_file
+-----------------------------------
+  [1m[36mMerchant Load (0.5ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+-------------------------------------------------------------
+UploaderTest: test_single_image_file_returns_new_image_object
+-------------------------------------------------------------
+  [1m[35mMerchant Load (0.5ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-----------------------------------------
+UploaderTest: test_accepts_array_of_files
+-----------------------------------------
+  [1m[36mMerchant Load (0.4ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-----------------------------------------------------
+UploaderTest: test_returns_nil_from_invalid_file_type
+-----------------------------------------------------
+  [1m[35mMerchant Load (0.3ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.0ms)[0m  ALTER TABLE "customers" DISABLE TRIGGER ALL;ALTER TABLE "images" DISABLE TRIGGER ALL;ALTER TABLE "locations" DISABLE TRIGGER ALL;ALTER TABLE "merchants" DISABLE TRIGGER ALL;ALTER TABLE "photo_products" DISABLE TRIGGER ALL;ALTER TABLE "states" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.6ms)[0m  DELETE FROM "merchants"
+  [1m[36mFixture Insert (0.5ms)[0m  [1mINSERT INTO "merchants" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Debbie', 'Photographer', 'debs@photgraphy.com', '555 Fake lane.', 'Nutley', 0, 3656, 'Debs77', '2015-07-07 01:06:12', '2015-07-07 01:06:12', 980190962)[0m
+  [1m[35mFixture Delete (0.6ms)[0m  DELETE FROM "images"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "images" ("merchant_id", "file_name", "created_at", "updated_at", "id") VALUES (0, '3240912393424.jpg', '2015-07-07 01:06:12', '2015-07-07 01:06:12', 980190962)[0m
+  [1m[35mFixture Delete (0.6ms)[0m  DELETE FROM "customers"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "customers" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Ethan', 'knox', 'norton120@gmail.com', '157 Van Winkle ave.', 'Nutley', 0, 3656, 'norton120', '2015-07-07 01:06:12', '2015-07-07 01:06:12', 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "photo_products"
+  [1m[36mFixture Insert (0.5ms)[0m  [1mINSERT INTO "photo_products" ("image_id", "physical_product", "datetime_taken", "price", "merchant_id", "created_at", "updated_at", "id", "location_id") VALUES (0, 'f', '2015-06-27 22:54:58.000000', 1.5, 0, '2015-07-07 01:06:12', '2015-07-07 01:06:12', 980190962, 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "states"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "states" ("full_name", "abbreviation", "created_at", "updated_at", "id") VALUES ('New Jersey', 'NJ', '2015-07-07 01:06:12', '2015-07-07 01:06:12', 959109372)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "locations"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "locations" ("lat", "lng", "zip", "name", "description", "created_at", "updated_at", "id", "state_id") VALUES (1.5, 1.5, 3656, 'Nutley Bend', 'This amazing turn is very exciting.', '2015-07-07 01:06:12', '2015-07-07 01:06:12', 980190962, 959109372)[0m
+  [1m[35m (19.7ms)[0m  COMMIT
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "customers" ENABLE TRIGGER ALL;ALTER TABLE "images" ENABLE TRIGGER ALL;ALTER TABLE "locations" ENABLE TRIGGER ALL;ALTER TABLE "merchants" ENABLE TRIGGER ALL;ALTER TABLE "photo_products" ENABLE TRIGGER ALL;ALTER TABLE "states" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-----------------------------------------
+UploaderTest: test_accepts_array_of_files
+-----------------------------------------
+  [1m[36mMerchant Load (0.4ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-----------------------------------------------------
+UploaderTest: test_returns_nil_from_invalid_file_type
+-----------------------------------------------------
+  [1m[35mMerchant Load (0.4ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-------------------------------------------------------------
+UploaderTest: test_single_image_file_returns_new_image_object
+-------------------------------------------------------------
+  [1m[36mMerchant Load (0.4ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.1ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-----------------------------------
+UploaderTest: test_unpacks_zip_file
+-----------------------------------
+  [1m[35mMerchant Load (0.4ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.3ms)[0m  ALTER TABLE "customers" DISABLE TRIGGER ALL;ALTER TABLE "images" DISABLE TRIGGER ALL;ALTER TABLE "locations" DISABLE TRIGGER ALL;ALTER TABLE "merchants" DISABLE TRIGGER ALL;ALTER TABLE "photo_products" DISABLE TRIGGER ALL;ALTER TABLE "states" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.7ms)[0m  DELETE FROM "merchants"
+  [1m[36mFixture Insert (0.5ms)[0m  [1mINSERT INTO "merchants" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Debbie', 'Photographer', 'debs@photgraphy.com', '555 Fake lane.', 'Nutley', 0, 3656, 'Debs77', '2015-07-07 01:06:49', '2015-07-07 01:06:49', 980190962)[0m
+  [1m[35mFixture Delete (0.6ms)[0m  DELETE FROM "images"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "images" ("merchant_id", "file_name", "created_at", "updated_at", "id") VALUES (0, '3240912393424.jpg', '2015-07-07 01:06:49', '2015-07-07 01:06:49', 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "customers"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "customers" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Ethan', 'knox', 'norton120@gmail.com', '157 Van Winkle ave.', 'Nutley', 0, 3656, 'norton120', '2015-07-07 01:06:49', '2015-07-07 01:06:49', 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "photo_products"
+  [1m[36mFixture Insert (0.5ms)[0m  [1mINSERT INTO "photo_products" ("image_id", "physical_product", "datetime_taken", "price", "merchant_id", "created_at", "updated_at", "id", "location_id") VALUES (0, 'f', '2015-06-27 22:54:58.000000', 1.5, 0, '2015-07-07 01:06:49', '2015-07-07 01:06:49', 980190962, 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "states"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "states" ("full_name", "abbreviation", "created_at", "updated_at", "id") VALUES ('New Jersey', 'NJ', '2015-07-07 01:06:49', '2015-07-07 01:06:49', 959109372)[0m
+  [1m[35mFixture Delete (0.6ms)[0m  DELETE FROM "locations"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "locations" ("lat", "lng", "zip", "name", "description", "created_at", "updated_at", "id", "state_id") VALUES (1.5, 1.5, 3656, 'Nutley Bend', 'This amazing turn is very exciting.', '2015-07-07 01:06:49', '2015-07-07 01:06:49', 980190962, 959109372)[0m
+  [1m[35m (22.4ms)[0m  COMMIT
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "customers" ENABLE TRIGGER ALL;ALTER TABLE "images" ENABLE TRIGGER ALL;ALTER TABLE "locations" ENABLE TRIGGER ALL;ALTER TABLE "merchants" ENABLE TRIGGER ALL;ALTER TABLE "photo_products" ENABLE TRIGGER ALL;ALTER TABLE "states" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-----------------------------------------
+UploaderTest: test_accepts_array_of_files
+-----------------------------------------
+  [1m[36mMerchant Load (0.4ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-----------------------------------------------------
+UploaderTest: test_returns_nil_from_invalid_file_type
+-----------------------------------------------------
+  [1m[35mMerchant Load (0.4ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-------------------------------------------------------------
+UploaderTest: test_single_image_file_returns_new_image_object
+-------------------------------------------------------------
+  [1m[36mMerchant Load (0.3ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-----------------------------------
+UploaderTest: test_unpacks_zip_file
+-----------------------------------
+  [1m[35mMerchant Load (0.4ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.6ms)[0m  ALTER TABLE "customers" DISABLE TRIGGER ALL;ALTER TABLE "images" DISABLE TRIGGER ALL;ALTER TABLE "locations" DISABLE TRIGGER ALL;ALTER TABLE "merchants" DISABLE TRIGGER ALL;ALTER TABLE "photo_products" DISABLE TRIGGER ALL;ALTER TABLE "states" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.6ms)[0m  DELETE FROM "merchants"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "merchants" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Debbie', 'Photographer', 'debs@photgraphy.com', '555 Fake lane.', 'Nutley', 0, 3656, 'Debs77', '2015-07-07 01:09:17', '2015-07-07 01:09:17', 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "images"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "images" ("merchant_id", "file_name", "created_at", "updated_at", "id") VALUES (0, '3240912393424.jpg', '2015-07-07 01:09:17', '2015-07-07 01:09:17', 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "customers"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "customers" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Ethan', 'knox', 'norton120@gmail.com', '157 Van Winkle ave.', 'Nutley', 0, 3656, 'norton120', '2015-07-07 01:09:17', '2015-07-07 01:09:17', 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "photo_products"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "photo_products" ("image_id", "physical_product", "datetime_taken", "price", "merchant_id", "created_at", "updated_at", "id", "location_id") VALUES (0, 'f', '2015-06-27 22:54:58.000000', 1.5, 0, '2015-07-07 01:09:17', '2015-07-07 01:09:17', 980190962, 980190962)[0m
+  [1m[35mFixture Delete (0.4ms)[0m  DELETE FROM "states"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "states" ("full_name", "abbreviation", "created_at", "updated_at", "id") VALUES ('New Jersey', 'NJ', '2015-07-07 01:09:17', '2015-07-07 01:09:17', 959109372)[0m
+  [1m[35mFixture Delete (0.6ms)[0m  DELETE FROM "locations"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "locations" ("lat", "lng", "zip", "name", "description", "created_at", "updated_at", "id", "state_id") VALUES (1.5, 1.5, 3656, 'Nutley Bend', 'This amazing turn is very exciting.', '2015-07-07 01:09:17', '2015-07-07 01:09:17', 980190962, 959109372)[0m
+  [1m[35m (17.1ms)[0m  COMMIT
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "customers" ENABLE TRIGGER ALL;ALTER TABLE "images" ENABLE TRIGGER ALL;ALTER TABLE "locations" ENABLE TRIGGER ALL;ALTER TABLE "merchants" ENABLE TRIGGER ALL;ALTER TABLE "photo_products" ENABLE TRIGGER ALL;ALTER TABLE "states" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-----------------------------------------
+UploaderTest: test_accepts_array_of_files
+-----------------------------------------
+  [1m[36mMerchant Load (0.5ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+-------------------------------------------------------------
+UploaderTest: test_single_image_file_returns_new_image_object
+-------------------------------------------------------------
+  [1m[35mMerchant Load (0.5ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-----------------------------------------------------
+UploaderTest: test_returns_nil_from_invalid_file_type
+-----------------------------------------------------
+  [1m[36mMerchant Load (0.5ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+-----------------------------------
+UploaderTest: test_unpacks_zip_file
+-----------------------------------
+  [1m[35mMerchant Load (0.4ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.0ms)[0m  ALTER TABLE "customers" DISABLE TRIGGER ALL;ALTER TABLE "images" DISABLE TRIGGER ALL;ALTER TABLE "locations" DISABLE TRIGGER ALL;ALTER TABLE "merchants" DISABLE TRIGGER ALL;ALTER TABLE "photo_products" DISABLE TRIGGER ALL;ALTER TABLE "states" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.6ms)[0m  DELETE FROM "merchants"
+  [1m[36mFixture Insert (0.5ms)[0m  [1mINSERT INTO "merchants" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Debbie', 'Photographer', 'debs@photgraphy.com', '555 Fake lane.', 'Nutley', 0, 3656, 'Debs77', '2015-07-07 01:11:13', '2015-07-07 01:11:13', 980190962)[0m
+  [1m[35mFixture Delete (0.4ms)[0m  DELETE FROM "images"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "images" ("merchant_id", "file_name", "created_at", "updated_at", "id") VALUES (0, '3240912393424.jpg', '2015-07-07 01:11:13', '2015-07-07 01:11:13', 980190962)[0m
+  [1m[35mFixture Delete (0.4ms)[0m  DELETE FROM "customers"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "customers" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Ethan', 'knox', 'norton120@gmail.com', '157 Van Winkle ave.', 'Nutley', 0, 3656, 'norton120', '2015-07-07 01:11:13', '2015-07-07 01:11:13', 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "photo_products"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "photo_products" ("image_id", "physical_product", "datetime_taken", "price", "merchant_id", "created_at", "updated_at", "id", "location_id") VALUES (0, 'f', '2015-06-27 22:54:58.000000', 1.5, 0, '2015-07-07 01:11:13', '2015-07-07 01:11:13', 980190962, 980190962)[0m
+  [1m[35mFixture Delete (0.4ms)[0m  DELETE FROM "states"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "states" ("full_name", "abbreviation", "created_at", "updated_at", "id") VALUES ('New Jersey', 'NJ', '2015-07-07 01:11:13', '2015-07-07 01:11:13', 959109372)[0m
+  [1m[35mFixture Delete (0.4ms)[0m  DELETE FROM "locations"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "locations" ("lat", "lng", "zip", "name", "description", "created_at", "updated_at", "id", "state_id") VALUES (1.5, 1.5, 3656, 'Nutley Bend', 'This amazing turn is very exciting.', '2015-07-07 01:11:13', '2015-07-07 01:11:13', 980190962, 959109372)[0m
+  [1m[35m (19.9ms)[0m  COMMIT
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "customers" ENABLE TRIGGER ALL;ALTER TABLE "images" ENABLE TRIGGER ALL;ALTER TABLE "locations" ENABLE TRIGGER ALL;ALTER TABLE "merchants" ENABLE TRIGGER ALL;ALTER TABLE "photo_products" ENABLE TRIGGER ALL;ALTER TABLE "states" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-----------------------------------------------------
+UploaderTest: test_returns_nil_from_invalid_file_type
+-----------------------------------------------------
+  [1m[36mMerchant Load (0.5ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+-----------------------------------
+UploaderTest: test_unpacks_zip_file
+-----------------------------------
+  [1m[35mMerchant Load (0.5ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-------------------------------------------------------------
+UploaderTest: test_single_image_file_returns_new_image_object
+-------------------------------------------------------------
+  [1m[36mMerchant Load (0.4ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-----------------------------------------
+UploaderTest: test_accepts_array_of_files
+-----------------------------------------
+  [1m[35mMerchant Load (0.4ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.1ms)[0m  ALTER TABLE "customers" DISABLE TRIGGER ALL;ALTER TABLE "images" DISABLE TRIGGER ALL;ALTER TABLE "locations" DISABLE TRIGGER ALL;ALTER TABLE "merchants" DISABLE TRIGGER ALL;ALTER TABLE "photo_products" DISABLE TRIGGER ALL;ALTER TABLE "states" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.6ms)[0m  DELETE FROM "merchants"
+  [1m[36mFixture Insert (0.5ms)[0m  [1mINSERT INTO "merchants" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Debbie', 'Photographer', 'debs@photgraphy.com', '555 Fake lane.', 'Nutley', 0, 3656, 'Debs77', '2015-07-07 01:12:01', '2015-07-07 01:12:01', 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "images"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "images" ("merchant_id", "file_name", "created_at", "updated_at", "id") VALUES (0, '3240912393424.jpg', '2015-07-07 01:12:01', '2015-07-07 01:12:01', 980190962)[0m
+  [1m[35mFixture Delete (0.6ms)[0m  DELETE FROM "customers"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "customers" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Ethan', 'knox', 'norton120@gmail.com', '157 Van Winkle ave.', 'Nutley', 0, 3656, 'norton120', '2015-07-07 01:12:01', '2015-07-07 01:12:01', 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "photo_products"
+  [1m[36mFixture Insert (0.5ms)[0m  [1mINSERT INTO "photo_products" ("image_id", "physical_product", "datetime_taken", "price", "merchant_id", "created_at", "updated_at", "id", "location_id") VALUES (0, 'f', '2015-06-27 22:54:58.000000', 1.5, 0, '2015-07-07 01:12:01', '2015-07-07 01:12:01', 980190962, 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "states"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "states" ("full_name", "abbreviation", "created_at", "updated_at", "id") VALUES ('New Jersey', 'NJ', '2015-07-07 01:12:01', '2015-07-07 01:12:01', 959109372)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "locations"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "locations" ("lat", "lng", "zip", "name", "description", "created_at", "updated_at", "id", "state_id") VALUES (1.5, 1.5, 3656, 'Nutley Bend', 'This amazing turn is very exciting.', '2015-07-07 01:12:01', '2015-07-07 01:12:01', 980190962, 959109372)[0m
+  [1m[35m (24.3ms)[0m  COMMIT
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "customers" ENABLE TRIGGER ALL;ALTER TABLE "images" ENABLE TRIGGER ALL;ALTER TABLE "locations" ENABLE TRIGGER ALL;ALTER TABLE "merchants" ENABLE TRIGGER ALL;ALTER TABLE "photo_products" ENABLE TRIGGER ALL;ALTER TABLE "states" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-----------------------------------------------------
+UploaderTest: test_returns_nil_from_invalid_file_type
+-----------------------------------------------------
+  [1m[36mMerchant Load (0.5ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-----------------------------------------
+UploaderTest: test_accepts_array_of_files
+-----------------------------------------
+  [1m[35mMerchant Load (0.4ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-----------------------------------
+UploaderTest: test_unpacks_zip_file
+-----------------------------------
+  [1m[36mMerchant Load (0.4ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+-------------------------------------------------------------
+UploaderTest: test_single_image_file_returns_new_image_object
+-------------------------------------------------------------
+  [1m[35mMerchant Load (0.4ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.1ms)[0m  ALTER TABLE "customers" DISABLE TRIGGER ALL;ALTER TABLE "images" DISABLE TRIGGER ALL;ALTER TABLE "locations" DISABLE TRIGGER ALL;ALTER TABLE "merchants" DISABLE TRIGGER ALL;ALTER TABLE "photo_products" DISABLE TRIGGER ALL;ALTER TABLE "states" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.7ms)[0m  DELETE FROM "merchants"
+  [1m[36mFixture Insert (0.5ms)[0m  [1mINSERT INTO "merchants" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Debbie', 'Photographer', 'debs@photgraphy.com', '555 Fake lane.', 'Nutley', 0, 3656, 'Debs77', '2015-07-07 01:13:18', '2015-07-07 01:13:18', 980190962)[0m
+  [1m[35mFixture Delete (0.4ms)[0m  DELETE FROM "images"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "images" ("merchant_id", "file_name", "created_at", "updated_at", "id") VALUES (0, '3240912393424.jpg', '2015-07-07 01:13:18', '2015-07-07 01:13:18', 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "customers"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "customers" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Ethan', 'knox', 'norton120@gmail.com', '157 Van Winkle ave.', 'Nutley', 0, 3656, 'norton120', '2015-07-07 01:13:18', '2015-07-07 01:13:18', 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "photo_products"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "photo_products" ("image_id", "physical_product", "datetime_taken", "price", "merchant_id", "created_at", "updated_at", "id", "location_id") VALUES (0, 'f', '2015-06-27 22:54:58.000000', 1.5, 0, '2015-07-07 01:13:18', '2015-07-07 01:13:18', 980190962, 980190962)[0m
+  [1m[35mFixture Delete (0.4ms)[0m  DELETE FROM "states"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "states" ("full_name", "abbreviation", "created_at", "updated_at", "id") VALUES ('New Jersey', 'NJ', '2015-07-07 01:13:18', '2015-07-07 01:13:18', 959109372)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "locations"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "locations" ("lat", "lng", "zip", "name", "description", "created_at", "updated_at", "id", "state_id") VALUES (1.5, 1.5, 3656, 'Nutley Bend', 'This amazing turn is very exciting.', '2015-07-07 01:13:18', '2015-07-07 01:13:18', 980190962, 959109372)[0m
+  [1m[35m (21.7ms)[0m  COMMIT
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "customers" ENABLE TRIGGER ALL;ALTER TABLE "images" ENABLE TRIGGER ALL;ALTER TABLE "locations" ENABLE TRIGGER ALL;ALTER TABLE "merchants" ENABLE TRIGGER ALL;ALTER TABLE "photo_products" ENABLE TRIGGER ALL;ALTER TABLE "states" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-----------------------------------------
+UploaderTest: test_accepts_array_of_files
+-----------------------------------------
+  [1m[36mMerchant Load (0.4ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-------------------------------------------------------------
+UploaderTest: test_single_image_file_returns_new_image_object
+-------------------------------------------------------------
+  [1m[35mMerchant Load (0.5ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-----------------------------------------------------
+UploaderTest: test_returns_nil_from_invalid_file_type
+-----------------------------------------------------
+  [1m[36mMerchant Load (0.4ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-----------------------------------
+UploaderTest: test_unpacks_zip_file
+-----------------------------------
+  [1m[35mMerchant Load (0.3ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.1ms)[0m  ALTER TABLE "customers" DISABLE TRIGGER ALL;ALTER TABLE "images" DISABLE TRIGGER ALL;ALTER TABLE "locations" DISABLE TRIGGER ALL;ALTER TABLE "merchants" DISABLE TRIGGER ALL;ALTER TABLE "photo_products" DISABLE TRIGGER ALL;ALTER TABLE "states" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.7ms)[0m  DELETE FROM "merchants"
+  [1m[36mFixture Insert (0.5ms)[0m  [1mINSERT INTO "merchants" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Debbie', 'Photographer', 'debs@photgraphy.com', '555 Fake lane.', 'Nutley', 0, 3656, 'Debs77', '2015-07-07 01:14:20', '2015-07-07 01:14:20', 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "images"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "images" ("merchant_id", "file_name", "created_at", "updated_at", "id") VALUES (0, '3240912393424.jpg', '2015-07-07 01:14:20', '2015-07-07 01:14:20', 980190962)[0m
+  [1m[35mFixture Delete (0.6ms)[0m  DELETE FROM "customers"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "customers" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Ethan', 'knox', 'norton120@gmail.com', '157 Van Winkle ave.', 'Nutley', 0, 3656, 'norton120', '2015-07-07 01:14:20', '2015-07-07 01:14:20', 980190962)[0m
+  [1m[35mFixture Delete (0.6ms)[0m  DELETE FROM "photo_products"
+  [1m[36mFixture Insert (0.5ms)[0m  [1mINSERT INTO "photo_products" ("image_id", "physical_product", "datetime_taken", "price", "merchant_id", "created_at", "updated_at", "id", "location_id") VALUES (0, 'f', '2015-06-27 22:54:58.000000', 1.5, 0, '2015-07-07 01:14:20', '2015-07-07 01:14:20', 980190962, 980190962)[0m
+  [1m[35mFixture Delete (0.6ms)[0m  DELETE FROM "states"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "states" ("full_name", "abbreviation", "created_at", "updated_at", "id") VALUES ('New Jersey', 'NJ', '2015-07-07 01:14:20', '2015-07-07 01:14:20', 959109372)[0m
+  [1m[35mFixture Delete (0.6ms)[0m  DELETE FROM "locations"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "locations" ("lat", "lng", "zip", "name", "description", "created_at", "updated_at", "id", "state_id") VALUES (1.5, 1.5, 3656, 'Nutley Bend', 'This amazing turn is very exciting.', '2015-07-07 01:14:20', '2015-07-07 01:14:20', 980190962, 959109372)[0m
+  [1m[35m (18.5ms)[0m  COMMIT
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "customers" ENABLE TRIGGER ALL;ALTER TABLE "images" ENABLE TRIGGER ALL;ALTER TABLE "locations" ENABLE TRIGGER ALL;ALTER TABLE "merchants" ENABLE TRIGGER ALL;ALTER TABLE "photo_products" ENABLE TRIGGER ALL;ALTER TABLE "states" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-------------------------------------------------------------
+UploaderTest: test_single_image_file_returns_new_image_object
+-------------------------------------------------------------
+  [1m[36mMerchant Load (0.4ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.5ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+-----------------------------------------------------
+UploaderTest: test_returns_nil_from_invalid_file_type
+-----------------------------------------------------
+  [1m[35mMerchant Load (0.4ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-----------------------------------
+UploaderTest: test_unpacks_zip_file
+-----------------------------------
+  [1m[36mMerchant Load (0.4ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-----------------------------------------
+UploaderTest: test_accepts_array_of_files
+-----------------------------------------
+  [1m[35mMerchant Load (0.4ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.1ms)[0m  ALTER TABLE "customers" DISABLE TRIGGER ALL;ALTER TABLE "images" DISABLE TRIGGER ALL;ALTER TABLE "locations" DISABLE TRIGGER ALL;ALTER TABLE "merchants" DISABLE TRIGGER ALL;ALTER TABLE "photo_products" DISABLE TRIGGER ALL;ALTER TABLE "states" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.6ms)[0m  DELETE FROM "merchants"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "merchants" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Debbie', 'Photographer', 'debs@photgraphy.com', '555 Fake lane.', 'Nutley', 0, 3656, 'Debs77', '2015-07-07 01:18:06', '2015-07-07 01:18:06', 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "images"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "images" ("merchant_id", "file_name", "created_at", "updated_at", "id") VALUES (0, '3240912393424.jpg', '2015-07-07 01:18:06', '2015-07-07 01:18:06', 980190962)[0m
+  [1m[35mFixture Delete (0.6ms)[0m  DELETE FROM "customers"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "customers" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Ethan', 'knox', 'norton120@gmail.com', '157 Van Winkle ave.', 'Nutley', 0, 3656, 'norton120', '2015-07-07 01:18:06', '2015-07-07 01:18:06', 980190962)[0m
+  [1m[35mFixture Delete (0.6ms)[0m  DELETE FROM "photo_products"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "photo_products" ("image_id", "physical_product", "datetime_taken", "price", "merchant_id", "created_at", "updated_at", "id", "location_id") VALUES (0, 'f', '2015-06-27 22:54:58.000000', 1.5, 0, '2015-07-07 01:18:06', '2015-07-07 01:18:06', 980190962, 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "states"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "states" ("full_name", "abbreviation", "created_at", "updated_at", "id") VALUES ('New Jersey', 'NJ', '2015-07-07 01:18:06', '2015-07-07 01:18:06', 959109372)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "locations"
+  [1m[36mFixture Insert (0.5ms)[0m  [1mINSERT INTO "locations" ("lat", "lng", "zip", "name", "description", "created_at", "updated_at", "id", "state_id") VALUES (1.5, 1.5, 3656, 'Nutley Bend', 'This amazing turn is very exciting.', '2015-07-07 01:18:06', '2015-07-07 01:18:06', 980190962, 959109372)[0m
+  [1m[35m (26.1ms)[0m  COMMIT
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "customers" ENABLE TRIGGER ALL;ALTER TABLE "images" ENABLE TRIGGER ALL;ALTER TABLE "locations" ENABLE TRIGGER ALL;ALTER TABLE "merchants" ENABLE TRIGGER ALL;ALTER TABLE "photo_products" ENABLE TRIGGER ALL;ALTER TABLE "states" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-----------------------------------------
+UploaderTest: test_accepts_array_of_files
+-----------------------------------------
+  [1m[36mMerchant Load (0.4ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+-----------------------------------------------------
+UploaderTest: test_returns_nil_from_invalid_file_type
+-----------------------------------------------------
+  [1m[35mMerchant Load (0.5ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-------------------------------------------------------------
+UploaderTest: test_single_image_file_returns_new_image_object
+-------------------------------------------------------------
+  [1m[36mMerchant Load (0.4ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-----------------------------------
+UploaderTest: test_unpacks_zip_file
+-----------------------------------
+  [1m[35mMerchant Load (0.3ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.1ms)[0m  ALTER TABLE "customers" DISABLE TRIGGER ALL;ALTER TABLE "images" DISABLE TRIGGER ALL;ALTER TABLE "locations" DISABLE TRIGGER ALL;ALTER TABLE "merchants" DISABLE TRIGGER ALL;ALTER TABLE "photo_products" DISABLE TRIGGER ALL;ALTER TABLE "states" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.7ms)[0m  DELETE FROM "merchants"
+  [1m[36mFixture Insert (0.5ms)[0m  [1mINSERT INTO "merchants" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Debbie', 'Photographer', 'debs@photgraphy.com', '555 Fake lane.', 'Nutley', 0, 3656, 'Debs77', '2015-07-07 01:23:33', '2015-07-07 01:23:33', 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "images"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "images" ("merchant_id", "file_name", "created_at", "updated_at", "id") VALUES (0, '3240912393424.jpg', '2015-07-07 01:23:33', '2015-07-07 01:23:33', 980190962)[0m
+  [1m[35mFixture Delete (2.6ms)[0m  DELETE FROM "customers"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "customers" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Ethan', 'knox', 'norton120@gmail.com', '157 Van Winkle ave.', 'Nutley', 0, 3656, 'norton120', '2015-07-07 01:23:33', '2015-07-07 01:23:33', 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "photo_products"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "photo_products" ("image_id", "physical_product", "datetime_taken", "price", "merchant_id", "created_at", "updated_at", "id", "location_id") VALUES (0, 'f', '2015-06-27 22:54:58.000000', 1.5, 0, '2015-07-07 01:23:33', '2015-07-07 01:23:33', 980190962, 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "states"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "states" ("full_name", "abbreviation", "created_at", "updated_at", "id") VALUES ('New Jersey', 'NJ', '2015-07-07 01:23:33', '2015-07-07 01:23:33', 959109372)[0m
+  [1m[35mFixture Delete (0.6ms)[0m  DELETE FROM "locations"
+  [1m[36mFixture Insert (0.5ms)[0m  [1mINSERT INTO "locations" ("lat", "lng", "zip", "name", "description", "created_at", "updated_at", "id", "state_id") VALUES (1.5, 1.5, 3656, 'Nutley Bend', 'This amazing turn is very exciting.', '2015-07-07 01:23:34', '2015-07-07 01:23:34', 980190962, 959109372)[0m
+  [1m[35m (26.2ms)[0m  COMMIT
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "customers" ENABLE TRIGGER ALL;ALTER TABLE "images" ENABLE TRIGGER ALL;ALTER TABLE "locations" ENABLE TRIGGER ALL;ALTER TABLE "merchants" ENABLE TRIGGER ALL;ALTER TABLE "photo_products" ENABLE TRIGGER ALL;ALTER TABLE "states" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-----------------------------------------
+UploaderTest: test_accepts_array_of_files
+-----------------------------------------
+  [1m[36mMerchant Load (0.3ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+-----------------------------------------------------
+UploaderTest: test_returns_nil_from_invalid_file_type
+-----------------------------------------------------
+  [1m[35mMerchant Load (0.5ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-----------------------------------
+UploaderTest: test_unpacks_zip_file
+-----------------------------------
+  [1m[36mMerchant Load (0.4ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-------------------------------------------------------------
+UploaderTest: test_single_image_file_returns_new_image_object
+-------------------------------------------------------------
+  [1m[35mMerchant Load (0.4ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.0ms)[0m  ALTER TABLE "customers" DISABLE TRIGGER ALL;ALTER TABLE "images" DISABLE TRIGGER ALL;ALTER TABLE "locations" DISABLE TRIGGER ALL;ALTER TABLE "merchants" DISABLE TRIGGER ALL;ALTER TABLE "photo_products" DISABLE TRIGGER ALL;ALTER TABLE "states" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.6ms)[0m  DELETE FROM "merchants"
+  [1m[36mFixture Insert (0.5ms)[0m  [1mINSERT INTO "merchants" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Debbie', 'Photographer', 'debs@photgraphy.com', '555 Fake lane.', 'Nutley', 0, 3656, 'Debs77', '2015-07-07 01:25:51', '2015-07-07 01:25:51', 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "images"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "images" ("merchant_id", "file_name", "created_at", "updated_at", "id") VALUES (0, '3240912393424.jpg', '2015-07-07 01:25:51', '2015-07-07 01:25:51', 980190962)[0m
+  [1m[35mFixture Delete (0.6ms)[0m  DELETE FROM "customers"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "customers" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Ethan', 'knox', 'norton120@gmail.com', '157 Van Winkle ave.', 'Nutley', 0, 3656, 'norton120', '2015-07-07 01:25:51', '2015-07-07 01:25:51', 980190962)[0m
+  [1m[35mFixture Delete (0.6ms)[0m  DELETE FROM "photo_products"
+  [1m[36mFixture Insert (0.5ms)[0m  [1mINSERT INTO "photo_products" ("image_id", "physical_product", "datetime_taken", "price", "merchant_id", "created_at", "updated_at", "id", "location_id") VALUES (0, 'f', '2015-06-27 22:54:58.000000', 1.5, 0, '2015-07-07 01:25:51', '2015-07-07 01:25:51', 980190962, 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "states"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "states" ("full_name", "abbreviation", "created_at", "updated_at", "id") VALUES ('New Jersey', 'NJ', '2015-07-07 01:25:51', '2015-07-07 01:25:51', 959109372)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "locations"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "locations" ("lat", "lng", "zip", "name", "description", "created_at", "updated_at", "id", "state_id") VALUES (1.5, 1.5, 3656, 'Nutley Bend', 'This amazing turn is very exciting.', '2015-07-07 01:25:51', '2015-07-07 01:25:51', 980190962, 959109372)[0m
+  [1m[35m (23.3ms)[0m  COMMIT
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "customers" ENABLE TRIGGER ALL;ALTER TABLE "images" ENABLE TRIGGER ALL;ALTER TABLE "locations" ENABLE TRIGGER ALL;ALTER TABLE "merchants" ENABLE TRIGGER ALL;ALTER TABLE "photo_products" ENABLE TRIGGER ALL;ALTER TABLE "states" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-----------------------------------
+UploaderTest: test_unpacks_zip_file
+-----------------------------------
+  [1m[36mMerchant Load (0.5ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+-----------------------------------------------------
+UploaderTest: test_returns_nil_from_invalid_file_type
+-----------------------------------------------------
+  [1m[35mMerchant Load (0.4ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+-------------------------------------------------------------
+UploaderTest: test_single_image_file_returns_new_image_object
+-------------------------------------------------------------
+  [1m[36mMerchant Load (0.4ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-----------------------------------------
+UploaderTest: test_accepts_array_of_files
+-----------------------------------------
+  [1m[35mMerchant Load (0.3ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.5ms)[0m  ALTER TABLE "customers" DISABLE TRIGGER ALL;ALTER TABLE "images" DISABLE TRIGGER ALL;ALTER TABLE "locations" DISABLE TRIGGER ALL;ALTER TABLE "merchants" DISABLE TRIGGER ALL;ALTER TABLE "photo_products" DISABLE TRIGGER ALL;ALTER TABLE "states" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.7ms)[0m  DELETE FROM "merchants"
+  [1m[36mFixture Insert (0.5ms)[0m  [1mINSERT INTO "merchants" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Debbie', 'Photographer', 'debs@photgraphy.com', '555 Fake lane.', 'Nutley', 0, 3656, 'Debs77', '2015-07-07 01:26:11', '2015-07-07 01:26:11', 980190962)[0m
+  [1m[35mFixture Delete (0.6ms)[0m  DELETE FROM "images"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "images" ("merchant_id", "file_name", "created_at", "updated_at", "id") VALUES (0, '3240912393424.jpg', '2015-07-07 01:26:11', '2015-07-07 01:26:11', 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "customers"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "customers" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Ethan', 'knox', 'norton120@gmail.com', '157 Van Winkle ave.', 'Nutley', 0, 3656, 'norton120', '2015-07-07 01:26:11', '2015-07-07 01:26:11', 980190962)[0m
+  [1m[35mFixture Delete (0.4ms)[0m  DELETE FROM "photo_products"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "photo_products" ("image_id", "physical_product", "datetime_taken", "price", "merchant_id", "created_at", "updated_at", "id", "location_id") VALUES (0, 'f', '2015-06-27 22:54:58.000000', 1.5, 0, '2015-07-07 01:26:11', '2015-07-07 01:26:11', 980190962, 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "states"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "states" ("full_name", "abbreviation", "created_at", "updated_at", "id") VALUES ('New Jersey', 'NJ', '2015-07-07 01:26:11', '2015-07-07 01:26:11', 959109372)[0m
+  [1m[35mFixture Delete (0.6ms)[0m  DELETE FROM "locations"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "locations" ("lat", "lng", "zip", "name", "description", "created_at", "updated_at", "id", "state_id") VALUES (1.5, 1.5, 3656, 'Nutley Bend', 'This amazing turn is very exciting.', '2015-07-07 01:26:11', '2015-07-07 01:26:11', 980190962, 959109372)[0m
+  [1m[35m (24.0ms)[0m  COMMIT
+  [1m[36m (0.4ms)[0m  [1mALTER TABLE "customers" ENABLE TRIGGER ALL;ALTER TABLE "images" ENABLE TRIGGER ALL;ALTER TABLE "locations" ENABLE TRIGGER ALL;ALTER TABLE "merchants" ENABLE TRIGGER ALL;ALTER TABLE "photo_products" ENABLE TRIGGER ALL;ALTER TABLE "states" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-----------------------------------------
+UploaderTest: test_accepts_array_of_files
+-----------------------------------------
+  [1m[36mMerchant Load (0.5ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+-----------------------------------------------------
+UploaderTest: test_returns_nil_from_invalid_file_type
+-----------------------------------------------------
+  [1m[35mMerchant Load (0.5ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-------------------------------------------------------------
+UploaderTest: test_single_image_file_returns_new_image_object
+-------------------------------------------------------------
+  [1m[36mMerchant Load (0.4ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+-----------------------------------
+UploaderTest: test_unpacks_zip_file
+-----------------------------------
+  [1m[35mMerchant Load (0.4ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (1.1ms)[0m  ALTER TABLE "customers" DISABLE TRIGGER ALL;ALTER TABLE "images" DISABLE TRIGGER ALL;ALTER TABLE "locations" DISABLE TRIGGER ALL;ALTER TABLE "merchants" DISABLE TRIGGER ALL;ALTER TABLE "photo_products" DISABLE TRIGGER ALL;ALTER TABLE "states" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mFixture Delete (0.7ms)[0m  DELETE FROM "merchants"
+  [1m[36mFixture Insert (0.5ms)[0m  [1mINSERT INTO "merchants" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Debbie', 'Photographer', 'debs@photgraphy.com', '555 Fake lane.', 'Nutley', 0, 3656, 'Debs77', '2015-07-07 01:27:04', '2015-07-07 01:27:04', 980190962)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "images"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "images" ("merchant_id", "file_name", "created_at", "updated_at", "id") VALUES (0, '3240912393424.jpg', '2015-07-07 01:27:04', '2015-07-07 01:27:04', 980190962)[0m
+  [1m[35mFixture Delete (0.6ms)[0m  DELETE FROM "customers"
+  [1m[36mFixture Insert (0.5ms)[0m  [1mINSERT INTO "customers" ("first_name", "last_name", "email", "street_address", "city", "state_id", "zip", "username", "created_at", "updated_at", "id") VALUES ('Ethan', 'knox', 'norton120@gmail.com', '157 Van Winkle ave.', 'Nutley', 0, 3656, 'norton120', '2015-07-07 01:27:04', '2015-07-07 01:27:04', 980190962)[0m
+  [1m[35mFixture Delete (0.6ms)[0m  DELETE FROM "photo_products"
+  [1m[36mFixture Insert (0.6ms)[0m  [1mINSERT INTO "photo_products" ("image_id", "physical_product", "datetime_taken", "price", "merchant_id", "created_at", "updated_at", "id", "location_id") VALUES (0, 'f', '2015-06-27 22:54:58.000000', 1.5, 0, '2015-07-07 01:27:04', '2015-07-07 01:27:04', 980190962, 980190962)[0m
+  [1m[35mFixture Delete (0.6ms)[0m  DELETE FROM "states"
+  [1m[36mFixture Insert (0.4ms)[0m  [1mINSERT INTO "states" ("full_name", "abbreviation", "created_at", "updated_at", "id") VALUES ('New Jersey', 'NJ', '2015-07-07 01:27:04', '2015-07-07 01:27:04', 959109372)[0m
+  [1m[35mFixture Delete (0.5ms)[0m  DELETE FROM "locations"
+  [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "locations" ("lat", "lng", "zip", "name", "description", "created_at", "updated_at", "id", "state_id") VALUES (1.5, 1.5, 3656, 'Nutley Bend', 'This amazing turn is very exciting.', '2015-07-07 01:27:04', '2015-07-07 01:27:04', 980190962, 959109372)[0m
+  [1m[35m (25.5ms)[0m  COMMIT
+  [1m[36m (0.5ms)[0m  [1mALTER TABLE "customers" ENABLE TRIGGER ALL;ALTER TABLE "images" ENABLE TRIGGER ALL;ALTER TABLE "locations" ENABLE TRIGGER ALL;ALTER TABLE "merchants" ENABLE TRIGGER ALL;ALTER TABLE "photo_products" ENABLE TRIGGER ALL;ALTER TABLE "states" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-------------------------------------------------------------
+UploaderTest: test_single_image_file_returns_new_image_object
+-------------------------------------------------------------
+  [1m[36mMerchant Load (0.6ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.3ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+-----------------------------------------
+UploaderTest: test_accepts_array_of_files
+-----------------------------------------
+  [1m[35mMerchant Load (0.5ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+-----------------------------------------------------
+UploaderTest: test_returns_nil_from_invalid_file_type
+-----------------------------------------------------
+  [1m[36mMerchant Load (0.6ms)[0m  [1mSELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1[0m  [["id", 980190962]]
+  [1m[35m (0.2ms)[0m  ROLLBACK
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+-----------------------------------
+UploaderTest: test_unpacks_zip_file
+-----------------------------------
+  [1m[35mMerchant Load (0.4ms)[0m  SELECT  "merchants".* FROM "merchants" WHERE "merchants"."id" = $1 LIMIT 1  [["id", 980190962]]
+  [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m

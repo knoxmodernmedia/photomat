@@ -2,22 +2,20 @@ require 'fileutils'
 
 class Image < Media
   
+  validates_presence_of :file_name
 
 ## images will be saved in 3 different image folders,
 ## and given a file name to match the object id. 
 
 
-  def create(filepath, user)
+  def self.create(temp_file_path, user)
     
-    image = Image.new(:merchant_id => user.id)
-    saved = File.new("#{Rails.root}/uploads/images/#{image.id}.#{File.extname(filepath)}")
-    saved.write(File.read(filepath))
-    image.save
-    
-    # clean up
-    File.delete(filepath)
+    new_file_name = Time.now.to_i.to_s + File.extname(temp_file_path)
 
-    image  
+    FileUtils.cp(temp_file_path, image_store_dir + new_file_name) 
+    
+    Image.new(:merchant_id => user, :file_name => new_file_name) 
+    Image.save!
   end
 
   def full_image
@@ -30,8 +28,18 @@ class Image < Media
   end
 
 private
-  def identifier
-    self.id
+  
+  def image_store_dir
+    "#{Rails.root}/uploads/images/" 
   end
+  
+  def init_store_dir
+    # test that the storage dir exists
+    # and is writable. If not, create and 
+    # set permissions. 
+
+  end
+
+
 
 end

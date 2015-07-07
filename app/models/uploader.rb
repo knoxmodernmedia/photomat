@@ -1,7 +1,10 @@
 class Uploader 
-  
+  attr_reader :user
+
+
   def load(*files, user)
-  
+    @user = user
+
     result = files.collect do |f|
       if File.file?(f)
         delegate_file(f) 
@@ -18,10 +21,10 @@ class Uploader
 private
   
   def delegate_file(filepath)
-    ext = File.extname(filepath).to_sym
+    ext = File.extname(filepath).delete(".").to_sym
     
     if image_file_extensions.include? ext
-      Image.create(filepath, user)
+      Image.create(filepath, @user)
     
     #elsif compressed_file_extensions.includes ext
    #   load(file.decompress)
