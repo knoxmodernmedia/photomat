@@ -9,7 +9,8 @@ class Image < Media
 
 
   def self.create(temp_file_path, user)
-    
+    init_store_dir
+
     new_file_name = Time.now.to_i.to_s + File.extname(temp_file_path)
 
     FileUtils.cp(temp_file_path, image_store_dir + new_file_name) 
@@ -29,11 +30,21 @@ class Image < Media
 
 private
   
-  def image_store_dir
+  def self.image_store_dir
     "#{Rails.root}/uploads/images/" 
   end
   
-  def init_store_dir
+  def self.init_store_dir
+    
+    FileUtils.cd("/") do
+      unless File.directory?(image_store_dir) 
+        FileUtils.mkdir(image_store_dir) 
+      end
+
+      unless File.writable?(image_store_dir)
+        FileUtils.chmod 660, image_store_dir
+      end  
+    end  
     # test that the storage dir exists
     # and is writable. If not, create and 
     # set permissions. 
